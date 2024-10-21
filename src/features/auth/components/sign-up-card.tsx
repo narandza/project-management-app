@@ -118,30 +118,39 @@ export const SignUpCard = () => {
             </form>
           </Form>
         </CardContent>
-        <div className="px-7 ">
-          <DottedSeparator />
-        </div>
-        <CardContent className="p-7 flex flex-col gap-y-7">
-          <Button
-            variant="secondary"
-            size="lg"
-            className="w-full"
-            disabled={false}
-          >
-            <FcGoogle className="mr-2 size-5" />
-            Login with Google
-          </Button>
-          <Button
-            variant="secondary"
-            size="lg"
-            className="w-full"
-            disabled={false}
-          >
-            <FaGithub className="mr-2 size-5" />
-            Login with Github
-          </Button>
-        </CardContent>
       </div>
+      <div className="px-7 ">
+        <DottedSeparator />
+      </div>
+      <CardContent className="p-7 flex flex-col gap-y-7">
+        <Button
+          variant="secondary"
+          size="lg"
+          className="w-full"
+          disabled={false}
+        >
+          <FcGoogle className="mr-2 size-5" />
+          Login with Google
+        </Button>
+        <Button
+          variant="secondary"
+          size="lg"
+          className="w-full"
+          disabled={false}
+        >
+          <FaGithub className="mr-2 size-5" />
+          Login with Github
+        </Button>
+      </CardContent>
+      <div className="px-7">
+        <DottedSeparator />
+      </div>
+      <CardContent className="p-7 flex items-center justify-center">
+        <p className="">Already have an account?</p>
+        <Link href="/sign-in">
+          <span className="text-blue-700">&nbsp;Sign In</span>
+        </Link>
+      </CardContent>
     </Card>
   );
 };

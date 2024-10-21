@@ -16,6 +16,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import Link from "next/link";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -84,30 +85,39 @@ export const SignInCard = () => {
             </form>
           </Form>
         </CardContent>
-        <div className="px-7 ">
-          <DottedSeparator />
-        </div>
-        <CardContent className="p-7 flex flex-col gap-y-7">
-          <Button
-            variant="secondary"
-            size="lg"
-            className="w-full"
-            disabled={false}
-          >
-            <FcGoogle className="mr-2 size-5" />
-            Login with Google
-          </Button>
-          <Button
-            variant="secondary"
-            size="lg"
-            className="w-full"
-            disabled={false}
-          >
-            <FaGithub className="mr-2 size-5" />
-            Login with Github
-          </Button>
-        </CardContent>
       </div>
+      <div className="px-7 ">
+        <DottedSeparator />
+      </div>
+      <CardContent className="p-7 flex flex-col gap-y-7">
+        <Button
+          variant="secondary"
+          size="lg"
+          className="w-full"
+          disabled={false}
+        >
+          <FcGoogle className="mr-2 size-5" />
+          Login with Google
+        </Button>
+        <Button
+          variant="secondary"
+          size="lg"
+          className="w-full"
+          disabled={false}
+        >
+          <FaGithub className="mr-2 size-5" />
+          Login with Github
+        </Button>
+      </CardContent>
+      <div className="px-7">
+        <DottedSeparator />
+      </div>
+      <CardContent className="p-7 flex items-center justify-center">
+        <p className="">Don&apos;t have an account?</p>
+        <Link href="/sign-up">
+          <span className="text-blue-700">&nbsp;Sign Up</span>
+        </Link>
+      </CardContent>
     </Card>
   );
 };
