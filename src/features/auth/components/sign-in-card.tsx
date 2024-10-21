@@ -71,8 +71,6 @@ export const SignInCard = () => {
                         {...field}
                         type="password"
                         placeholder="Enter password"
-                        min={8}
-                        max={256}
                       />
                     </FormControl>
                     <FormMessage />
