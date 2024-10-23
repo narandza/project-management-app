@@ -1,4 +1,4 @@
-import "sever-only";
+import "server-only";
 
 import {
   Account,
