@@ -214,25 +214,25 @@ const app = new Hono()
 
       if (member) {
         c.json({ error: "Already a member" }, 400);
-
-        const workspace = await databases.getDocument<Workspace>(
-          DATABASE_ID,
-          WORKSPACES_ID,
-          workspaceId
-        );
-
-        if (workspace.inviteCode !== code) {
-          return c.json({ error: "Invalid invite code" }, 400);
-        }
-
-        await databases.createDocument(DATABASE_ID, MEMBERS_ID, ID.unique(), {
-          workspaceId,
-          userId: user.$id,
-          role: MemberRole.MEMBER,
-        });
-
-        return c.json({ data: workspace });
       }
+
+      const workspace = await databases.getDocument<Workspace>(
+        DATABASE_ID,
+        WORKSPACES_ID,
+        workspaceId
+      );
+
+      if (workspace.inviteCode !== code) {
+        return c.json({ error: "Invalid invite code" }, 400);
+      }
+
+      await databases.createDocument(DATABASE_ID, MEMBERS_ID, ID.unique(), {
+        workspaceId,
+        userId: user.$id,
+        role: MemberRole.MEMBER,
+      });
+
+      return c.json({ data: workspace });
     }
   );
 
