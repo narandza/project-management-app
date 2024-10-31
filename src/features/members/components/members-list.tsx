@@ -1,13 +1,14 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useWorkspaceId } from "../hooks/use-workspace-id";
+import { useWorkspaceId } from "../../workspaces/hooks/use-workspace-id";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { DottedSeparator } from "@/components/dotted-separator";
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { Fragment } from "react";
+import { MemberAvatar } from "@/features/members/components/member-avatar";
 
 export const MembersList = () => {
   const workspaceId = useWorkspaceId();
@@ -33,7 +34,11 @@ export const MembersList = () => {
         {data?.documents.map((member, index) => (
           <Fragment key={member.$id}>
             <div className="flex items-center gap-2">
-              <MemberAvatar />
+              <MemberAvatar
+                name={member.name}
+                className="size-10"
+                fallbackClassName="text-lg"
+              />
             </div>
           </Fragment>
         ))}
