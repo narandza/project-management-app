@@ -3,12 +3,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useWorkspaceId } from "../../workspaces/hooks/use-workspace-id";
 import { Button } from "@/components/ui/button";
-import { ArrowLeftIcon } from "lucide-react";
+import { ArrowLeftIcon, MoreVerticalIcon } from "lucide-react";
 import Link from "next/link";
 import { DottedSeparator } from "@/components/dotted-separator";
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { Fragment } from "react";
 import { MemberAvatar } from "@/features/members/components/member-avatar";
+import { Separator } from "@/components/ui/separator";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const MembersList = () => {
   const workspaceId = useWorkspaceId();
@@ -39,7 +46,44 @@ export const MembersList = () => {
                 className="size-10"
                 fallbackClassName="text-lg"
               />
+              <div className="flex flex-col">
+                <p className="text-sm font-medium">{member.name}</p>
+                <p className="text-xs text-muted-foreground">{member.email}</p>
+              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button className="ml-auto" variant="secondary" size="sm">
+                    <MoreVerticalIcon className="size-4 text-muted-foreground" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent side="bottom" align="end">
+                  <DropdownMenuItem
+                    className="font-medium"
+                    onClick={() => {}}
+                    disabled={false}
+                  >
+                    Set as Admin
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="font-medium"
+                    onClick={() => {}}
+                    disabled={false}
+                  >
+                    Set as Member
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="font-medium text-amber-700"
+                    onClick={() => {}}
+                    disabled={false}
+                  >
+                    Remove Member
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
+            {index < data.documents.length - 1 && (
+              <Separator className="my-2.5 " />
+            )}
           </Fragment>
         ))}
       </CardContent>
