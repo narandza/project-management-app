@@ -1,6 +1,7 @@
 import { createSessionClient } from "@/lib/appwrtie";
 import { getMember } from "../members/utils";
 import { DATABASE_ID, PROJECTS_ID } from "@/config";
+import { Projects } from "./types";
 
 interface getProjectProps {
   projectId: string;
