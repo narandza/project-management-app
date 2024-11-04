@@ -19,9 +19,8 @@ export const useDeleteProject = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
-    mutationFn: async ({ form, param }) => {
+    mutationFn: async ({ param }) => {
       const response = await client.api.projects[":projectId"]["$delete"]({
-        form,
         param,
       });
 
