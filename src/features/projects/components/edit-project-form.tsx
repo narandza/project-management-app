@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ArrowLeftIcon, ImageIcon } from "lucide-react";
 import { useConfirm } from "@/hooks/use-confirm";
+import { useDeleteProject } from "../api/use-delete-project";
 
 interface EditProjectFormProps {
   onCancel?: () => void;
@@ -39,8 +40,8 @@ export const EditProjectForm = ({
 }: EditProjectFormProps) => {
   const router = useRouter();
   const { mutate, isPending } = useUpdateProject();
-  // const { mutate: deleteWorkspace, isPending: isDeletingWorkspace } =
-  //   useDeleteWorkspace();
+  const { mutate: deleteProject, isPending: isDeletingProject } =
+    useDeleteProject();
 
   const [DeleteDialog, confirmDelete] = useConfirm(
     "Delete Project",
@@ -63,17 +64,17 @@ export const EditProjectForm = ({
 
     if (!ok) return;
 
-    // deleteWorkspace(
-    //   {
-    //     param: { workspaceId: initialValues.$id },
-    //   },
-    //   {
-    //     onSuccess: () => {
-    //       router.push("/");
-    //       window.location.href = "/";
-    //     },
-    //   }
-    // );
+    deleteProject(
+      {
+        param: { workspaceId: initialValues.$id },
+      },
+      {
+        onSuccess: () => {
+          router.push("/");
+          window.location.href = "/";
+        },
+      }
+    );
   };
 
   const onSubmit = (values: z.infer<typeof updateProjectSchema>) => {
@@ -257,7 +258,7 @@ export const EditProjectForm = ({
               size="sm"
               variant="destructive"
               type="button"
-              disabled={isPending}
+              disabled={isPending || isDeletingProject}
               onClick={handleDelete}
             >
               Delete Project
