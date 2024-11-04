@@ -157,7 +157,7 @@ const app = new Hono()
         }
       );
 
-      return c.json({ data: workspace });
+      return c.json({ data: project });
     }
   );
 
