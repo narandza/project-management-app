@@ -7,7 +7,7 @@ import { PlusIcon } from "lucide-react";
 import { useCreateTaskModal } from "../hooks/use-create-task-modal";
 
 export const TaskViewSwitcher = () => {
-  const { open, isOpen, setIsOpen } = useCreateTaskModal();
+  const { open } = useCreateTaskModal();
 
   return (
     <Tabs className="flex-1 w-full border rounded-lg">
