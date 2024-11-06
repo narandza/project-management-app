@@ -9,7 +9,7 @@ import {
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { useGetProjects } from "@/features/projects/api/use-get-projects";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { ListChecks, UserIcon } from "lucide-react";
+import { FolderIcon, ListChecks, UserIcon } from "lucide-react";
 import { TaskStatus } from "../types";
 import { useTaskFilters } from "../hooks/use-task-filters";
 
@@ -49,6 +49,10 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
 
   const onAssigneeChange = (value: string) => {
     setFilters({ assigneeId: value === "all" ? null : (value as string) });
+  };
+
+  const onProjectChange = (value: string) => {
+    setFilters({ projectId: value === "all" ? null : (value as string) });
   };
 
   if (isLoading) return null;
@@ -95,6 +99,28 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
           {memberOptions?.map((member) => (
             <SelectItem key={member.value} value={member.value}>
               {member.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Select
+        defaultValue={projectId ?? undefined}
+        onValueChange={(value) => {
+          onProjectChange(value);
+        }}
+      >
+        <SelectTrigger className="w-full lg:w-auto h-8">
+          <div className="flex items-center pr-2">
+            <FolderIcon className="size-4 mr-2" />
+            <SelectValue placeholder="All projects" />
+          </div>
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All projects</SelectItem>
+          <SelectSeparator />
+          {projectOptions?.map((project) => (
+            <SelectItem key={project.value} value={project.value}>
+              {project.label}
             </SelectItem>
           ))}
         </SelectContent>
