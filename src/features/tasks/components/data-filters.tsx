@@ -9,7 +9,7 @@ import {
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { useGetProjects } from "@/features/projects/api/use-get-projects";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { ListChecks } from "lucide-react";
+import { ListChecks, UserIcon } from "lucide-react";
 import { TaskStatus } from "../types";
 import { useTaskFilters } from "../hooks/use-task-filters";
 
@@ -31,14 +31,13 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
   const isLoading = isLoadingProjects || isLoadingMembers;
 
   const projectOptions = projects?.documents.map((project) => ({
-    id: project.$id,
-    name: project.name,
-    imageUrl: project.imageUrl,
+    value: project.$id,
+    label: project.name,
   }));
 
   const memberOptions = members?.documents.map((member) => ({
-    id: member.$id,
-    name: member.name,
+    value: member.$id,
+    label: member.name,
   }));
 
   const [{ status, assigneeId, projectId, dueDate }, setFilters] =
@@ -46,6 +45,10 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
 
   const onStatusChange = (value: string) => {
     setFilters({ status: value === "all" ? null : (value as TaskStatus) });
+  };
+
+  const onAssigneeChange = (value: string) => {
+    setFilters({ assigneeId: value === "all" ? null : (value as string) });
   };
 
   if (isLoading) return null;
@@ -72,6 +75,28 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
           <SelectItem value={TaskStatus.IN_REVIEW}>In review</SelectItem>
           <SelectItem value={TaskStatus.TODO}>Todo</SelectItem>
           <SelectItem value={TaskStatus.DONE}>Done</SelectItem>
+        </SelectContent>
+      </Select>
+      <Select
+        defaultValue={assigneeId ?? undefined}
+        onValueChange={(value) => {
+          onAssigneeChange(value);
+        }}
+      >
+        <SelectTrigger className="w-full lg:w-auto h-8">
+          <div className="flex items-center pr-2">
+            <UserIcon className="size-4 mr-2" />
+            <SelectValue placeholder="All assignees" />
+          </div>
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All assignees</SelectItem>
+          <SelectSeparator />
+          {memberOptions?.map((member) => (
+            <SelectItem key={member.value} value={member.value}>
+              {member.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>
