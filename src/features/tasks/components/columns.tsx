@@ -6,6 +6,7 @@ import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { MemberAvatar } from "@/features/members/components/member-avatar";
+import { TaskDate } from "./task-date";
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -102,10 +103,7 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
       const dueDate = row.original.dueDate;
 
-      return (
-        <div className="">due date</div>
-        // TODO: <TaskDate value={dueDate} />
-      );
+      return <TaskDate value={dueDate} />;
     },
   },
 ];
