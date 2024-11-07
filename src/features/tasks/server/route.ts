@@ -190,7 +190,7 @@ const app = new Hono()
     }
   )
   .patch(
-    "/:taskId ",
+    "/:taskId",
     sessionMiddleware,
     zValidator("json", createTaskSchema.partial()),
     async (c) => {
@@ -198,7 +198,7 @@ const app = new Hono()
 
       const databases = c.get("databases");
 
-      const { name, status, workspaceId, projectId, dueDate, assigneeId } =
+      const { name, status, description, projectId, dueDate, assigneeId } =
         c.req.valid("json");
 
       const { taskId } = c.req.param();
@@ -219,34 +219,17 @@ const app = new Hono()
         return c.json({ error: "Unauthorized" }, 401);
       }
 
-      const highestPositionTask = await databases.listDocuments(
+      const task = await databases.updateDocument(
         DATABASE_ID,
         TASKS_ID,
-        [
-          Query.equal("status", status),
-          Query.equal("workspaceId", workspaceId),
-          Query.orderAsc("position"),
-          Query.limit(1),
-        ]
-      );
-
-      const newPosition =
-        highestPositionTask.documents.length > 1
-          ? highestPositionTask.documents[0].position + 1000
-          : 1000;
-
-      const task = await databases.createDocument(
-        DATABASE_ID,
-        TASKS_ID,
-        ID.unique(),
+        taskId,
         {
           name,
           status,
-          workspaceId,
           projectId,
           dueDate,
           assigneeId,
-          position: newPosition,
+          description,
         }
       );
 
