@@ -3,8 +3,8 @@ import { useGetMembers } from "@/features/members/api/use-get-members";
 import { useGetProjects } from "@/features/projects/api/use-get-projects";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { Loader } from "lucide-react";
-import { CreateTaskForm } from "./create-task-form";
 import { useGetTask } from "../api/use-get-task";
+import { EditTaskForm } from "./edit-task-form";
 
 interface EditTaskFormWrapperProps {
   onCancel: () => void;
@@ -54,5 +54,14 @@ export const EditTaskFormWrapper = ({
 
   if (!initialValues) return null;
 
-  return <div className="">{/* TODO: create edit task form */}</div>;
+  return (
+    <div className="">
+      <EditTaskForm
+        onCancel={onCancel}
+        projectOptions={projectOptions ?? []}
+        memberOptions={memberOptions ?? []}
+        initialValues={initialValues}
+      />
+    </div>
+  );
 };
