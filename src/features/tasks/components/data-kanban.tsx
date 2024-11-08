@@ -4,6 +4,7 @@ import { Task, TaskStatus } from "../types";
 
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { KanbanColumnHeader } from "./kanban-column-header";
+import { KanbanCard } from "./kanban-card";
 
 const boards: TaskStatus[] = [
   TaskStatus.BACKLOG,
@@ -77,7 +78,7 @@ export const DataKanban = ({ data }: DataKanbanProps) => {
                             ref={provided.innerRef}
                             className=""
                           >
-                            {task.name}
+                            <KanbanCard task={task} />
                           </div>
                         )}
                       </Draggable>
