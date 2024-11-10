@@ -30,15 +30,15 @@ export const TaskViewSwitcher = ({
 
   const workspaceId = useWorkspaceId();
 
-  const [{ status, assigneeId, dueDate }] = useTaskFilters();
+  const [{ status, projectId, assigneeId, dueDate }] = useTaskFilters();
 
   const params = useParams();
 
-  const projectId = params.projectId;
+  const paramsProjectId = params.projectId as string;
 
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
-    projectId,
+    projectId: hideProjectFilter ? paramsProjectId : projectId,
     assigneeId,
     status,
     dueDate,
