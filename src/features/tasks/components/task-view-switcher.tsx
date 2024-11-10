@@ -17,13 +17,24 @@ import { useCallback } from "react";
 import { TaskStatus } from "../types";
 import { useBulkUpdateTasks } from "../api/use-bulk-update-tasks";
 import { DataCalendar } from "./data-calendar";
+import { useParams } from "next/navigation";
 
-export const TaskViewSwitcher = () => {
+interface TaskViewSwitcherProps {
+  hideProjectFilter?: boolean;
+}
+
+export const TaskViewSwitcher = ({
+  hideProjectFilter,
+}: TaskViewSwitcherProps) => {
   const [view, setView] = useQueryState("task-view", { defaultValue: "table" });
 
   const workspaceId = useWorkspaceId();
 
-  const [{ status, assigneeId, projectId, dueDate }] = useTaskFilters();
+  const [{ status, assigneeId, dueDate }] = useTaskFilters();
+
+  const params = useParams();
+
+  const projectId = params.projectId;
 
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
@@ -71,7 +82,7 @@ export const TaskViewSwitcher = () => {
           </Button>
         </div>
         <DottedSeparator className="my-4" />
-        <DataFilters />
+        <DataFilters hideProjectFilter={hideProjectFilter} />
         <DottedSeparator className="my-4" />
         {isLoadingTasks ? (
           <div className="w-full border rounded-lg h-[200px] flex flex-col items-center justify-center">
