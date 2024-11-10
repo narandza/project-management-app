@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Task } from "../types";
 import { PencilIcon } from "lucide-react";
 import { DottedSeparator } from "@/components/dotted-separator";
+import { OverviewProperty } from "./overview-property";
+import { MemberAvatar } from "@/features/members/components/member-avatar";
 
 interface TaskOverviewProps {
   task: Task;
@@ -19,6 +21,11 @@ export const TaskOverview = ({ task }: TaskOverviewProps) => {
           </Button>
         </div>
         <DottedSeparator className="my-4" />
+        <div className="flex flex-col gap-y-4">
+          <OverviewProperty label="Assignee">
+            <MemberAvatar name={task.assignee.name} />
+          </OverviewProperty>
+        </div>
       </div>
     </div>
   );
