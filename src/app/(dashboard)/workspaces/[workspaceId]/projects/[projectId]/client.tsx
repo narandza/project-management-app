@@ -2,10 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
+import { useProjectId } from "@/features/projects/hooks/use-project-id";
 import { TaskViewSwitcher } from "@/features/tasks/components/task-view-switcher";
 import { Link, PencilIcon } from "lucide-react";
 
 export const ProjectIdClient = () => {
+  const projectId = useProjectId();
+
+  const {} = useGetProject();
+
   return (
     <div className="flex flex-col gap-y-4">
       <div className="flex items-center justify-between">

@@ -1,4 +1,4 @@
-import { DATABASE_ID, IMAGES_BUCKET_ID, PROJECTS_ID, TASKS_ID } from "@/config";
+import { DATABASE_ID, IMAGES_BUCKET_ID, PROJECTS_ID } from "@/config";
 import { getMember } from "@/features/members/utils";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { zValidator } from "@hono/zod-validator";
@@ -48,7 +48,7 @@ const app = new Hono()
 
     const { projectId } = c.req.param();
 
-    const project = await databases.getDocument<Project>(
+    const project = await databases.getDocument<Projects>(
       DATABASE_ID,
       PROJECTS_ID,
       projectId
