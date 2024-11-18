@@ -15,8 +15,6 @@ export const ProjectIdClient = () => {
 
   const { data, isLoading } = useGetProject({ projectId });
 
-  console.log(data);
-
   if (isLoading) {
     return <PageLoader />;
   }
