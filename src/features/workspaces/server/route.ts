@@ -45,13 +45,7 @@ const app = new Hono()
 
     const { workspaceId } = c.req.param();
 
-    const workspace = databases.getDocument(
-      DATABASE_ID,
-      WORKSPACES_ID,
-      workspaceId
-    );
-
-    const member = getMember({
+    const member = await getMember({
       databases,
       workspaceId,
       userId: user.$id,
@@ -61,7 +55,32 @@ const app = new Hono()
       return c.json({ error: "Unauthorized" }, 401);
     }
 
+    const workspace = await databases.getDocument<Workspace>(
+      DATABASE_ID,
+      WORKSPACES_ID,
+      workspaceId
+    );
+
     return c.json({ data: workspace });
+  })
+  .get("/:workspaceId/info", sessionMiddleware, async (c) => {
+    const databases = c.get("databases");
+
+    const { workspaceId } = c.req.param();
+
+    const workspace = await databases.getDocument<Workspace>(
+      DATABASE_ID,
+      WORKSPACES_ID,
+      workspaceId
+    );
+
+    return c.json({
+      data: {
+        $id: workspace.$id,
+        name: workspace.name,
+        imageUrl: workspace.imageUrl,
+      },
+    });
   })
   .post(
     "/",
