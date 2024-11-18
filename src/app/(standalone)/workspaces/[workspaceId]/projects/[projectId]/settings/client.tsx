@@ -6,7 +6,7 @@ import { useGetProject } from "@/features/projects/api/use-get-project";
 import { EditProjectForm } from "@/features/projects/components/edit-project-form";
 import { useProjectId } from "@/features/projects/hooks/use-project-id";
 
-const ProjectIdSettingsClient = () => {
+export const ProjectIdSettingsClient = () => {
   const projectId = useProjectId();
   const { data, isLoading } = useGetProject({ projectId });
 
@@ -24,5 +24,3 @@ const ProjectIdSettingsClient = () => {
     </div>
   );
 };
-
-export default ProjectIdSettingsClient;
