@@ -64,6 +64,8 @@ const app = new Hono()
       return c.json({ error: "Unauthorized" }, 401);
     }
 
+    console.log(project);
+
     return c.json({ data: project });
   })
   .post(
