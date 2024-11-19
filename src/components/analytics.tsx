@@ -1,6 +1,7 @@
 import { ProjectAnalyticsResponseType } from "@/features/projects/api/use-get-project-analytics";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { AnalyticsCard } from "./analytics-card";
+import { DottedSeparator } from "./dotted-separator";
 
 export const Analytics = ({ data }: ProjectAnalyticsResponseType) => {
   return (
@@ -13,8 +14,50 @@ export const Analytics = ({ data }: ProjectAnalyticsResponseType) => {
             variant={data.taskDifference > 1 ? "up" : "down"}
             increaseValue={data.taskDifference}
           />
+          <DottedSeparator direction="vertical" />
+        </div>
+
+        <div className="flex items-center flex-1">
+          <AnalyticsCard
+            title="Assigned tasks"
+            value={data.assignedTaskCount}
+            variant={data.assignedTaskDifference > 1 ? "up" : "down"}
+            increaseValue={data.assignedTaskDifference}
+          />
+          <DottedSeparator direction="vertical" />
+        </div>
+
+        <div className="flex items-center flex-1">
+          <AnalyticsCard
+            title="Completed tasks"
+            value={data.completedTasksCount}
+            variant={data.completedTasksDifference > 1 ? "up" : "down"}
+            increaseValue={data.completedTasksDifference}
+          />
+          <DottedSeparator direction="vertical" />
+        </div>
+
+        <div className="flex items-center flex-1">
+          <AnalyticsCard
+            title="Overdue tasks"
+            value={data.overdueTasksCount}
+            variant={data.overdueTasksDifference > 1 ? "up" : "down"}
+            increaseValue={data.overdueTasksDifference}
+          />
+          <DottedSeparator direction="vertical" />
+        </div>
+
+        <div className="flex items-center flex-1">
+          <AnalyticsCard
+            title="Incomplete tasks"
+            value={data.incompleteTasksCount}
+            variant={data.incompleteTasksDifference > 1 ? "up" : "down"}
+            increaseValue={data.incompleteTasksDifference}
+          />
+          <DottedSeparator direction="vertical" />
         </div>
       </div>
+      <ScrollBar orientation="horizontal" />
     </ScrollArea>
   );
 };
