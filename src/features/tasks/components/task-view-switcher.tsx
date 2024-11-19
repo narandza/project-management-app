@@ -36,7 +36,7 @@ export const TaskViewSwitcher = ({
 
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
-    projectId: hideProjectFilter ? paramsProjectId : projectId,
+    projectId: paramsProjectId || projectId,
     assigneeId,
     status,
     dueDate,
