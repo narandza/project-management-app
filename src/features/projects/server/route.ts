@@ -220,7 +220,7 @@ const app = new Hono()
 
     const { projectId } = c.req.param();
 
-    const project = await databases.getDocument<Projects>(
+    const project = await databases.getDocument(
       DATABASE_ID,
       PROJECTS_ID,
       projectId
