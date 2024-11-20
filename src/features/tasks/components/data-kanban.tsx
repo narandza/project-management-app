@@ -93,17 +93,15 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
         const newTasks = { ...prevTasks };
 
         // Safely remove the tasks from the source column
-
         const sourceColumn = [...newTasks[sourceStatus]];
         const [movedTask] = sourceColumn.splice(source.index, 1);
 
         if (!movedTask) {
           console.error("No task found at the source index");
-          return prevTasks;
+          return prevTasks; // Early return here is fine because it still returns `prevTasks`, which is a valid `TaskState`.
         }
 
         // Create a new task object with potential updated status
-
         const updatedMovedTask =
           sourceStatus !== destStatus
             ? { ...movedTask, status: destStatus }
@@ -153,9 +151,9 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
               }
             }
           });
-
-          return newTasks;
         }
+
+        return newTasks; // Ensure this line always returns a valid `TaskState`.
       });
 
       onChange(updatesPayload);
